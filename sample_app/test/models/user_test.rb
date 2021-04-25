@@ -9,4 +9,16 @@ class UserTest < ActiveSupport::TestCase
   test "should be valid" do
     assert @user.valid?
   end
+  
+  #ここまでで、Userクラス(モデル)に生成するオブジェクトは有効であるかの検証を行う。
+  
+  test "name should be present" do
+    @user.name = "     "
+    assert_not @user.valid?
+  end
+  
+  test "email should be present" do
+    @user.email = "     "
+    assert_not @user.valid?
+  end
 end
