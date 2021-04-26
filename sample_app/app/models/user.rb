@@ -9,4 +9,10 @@ class User < ApplicationRecord
                uniqueness: true   #case_sensitive で強制的にfalseにさせていたが、必要がなくなったためにtrueに戻した。
     has_secure_password
     validates :password, presence: true, length: { minimum: 6 }
+    
+    def User.digest(string)
+      cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                    BCrypt::Engine.cost
+      BCrypt::Password.create(string, cost: cost)
+    end
 end
